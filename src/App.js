@@ -1,25 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import ReCAPTCHA from 'react-google-recaptcha';
+import React,{createContext, useContext, useRef} from 'react';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { Layout } from './Layout';
+import { Login, loguser } from './Login';
+import { Signup } from './Signup';
+import { Forgpass } from './Forgpass';
+import { Wallet } from './wallet';
+import { render } from '@testing-library/react';
+import { Dashboard } from './Dashboard';
 
-function App() {
+export const luser=createContext();
+
+export default function App() {
+  const user=useContext(loguser);
   return (
+    <luser.Provider value={user}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+       
+       <BrowserRouter>
+         <Routes>
+             <Route path="/" element={<Layout/>}>
+              <Route index element={<Login flag="true"/>}/>
+              <Route path='/wallet' element={<Wallet/>}/>
+              <Route path='/Sign-up' element={<Signup flag="true"/>}/>
+              <Route path='/Forgot-pass' element={<Forgpass flag="true" />}/>
+              <Route path='/dashboard' element={<Dashboard/>}/>
+             </Route>
+         </Routes>
+       </BrowserRouter>
     </div>
+    </luser.Provider>
   );
 }
 
-export default App;
