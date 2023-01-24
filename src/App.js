@@ -10,10 +10,11 @@ import { Forgpass } from './Forgpass';
 import { Wallet } from './wallet';
 import { render } from '@testing-library/react';
 import { Dashboard } from './Dashboard';
+import { connect } from 'react-redux';
 
 export const luser=createContext();
 
-export default function App() {
+function App() {
   const user=useContext(loguser);
   return (
     <luser.Provider value={user}>
@@ -36,3 +37,4 @@ export default function App() {
   );
 }
 
+export default connect()(App);

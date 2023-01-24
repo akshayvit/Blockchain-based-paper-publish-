@@ -75,12 +75,17 @@ function Payment(props) {
 }
 
 function Dashboard_component(props) {
-    const {user,type}=props;
+    const {user,email,country,role,type}=props;
     const isaproved=useRef(false);
     const [addr,setaddr]=useState("0xb6cba76Df107aB90601866C4c375Ac4349990117");
     const [ethr,setethr]=useState(0.02);
     const [money,setmoney]=useState(false);
     const [txs,settsx]=useState([]);
+    const mapStateToProps=state=>({
+        ...state,email:email,uname:user,location:country,role:role
+    });
+    props=mapStateToProps;
+    //isaproved=this.props.verified;
     const dopayment=async (settransac,ethr,addr)=>{
         if(window.ethereum) {
             try{
@@ -459,6 +464,56 @@ function Dashboard_component(props) {
         );
     }
     else if(type=="Admin") {
+        const [apprv,setapprv]=useState(false);
+        const notify=async () =>{
+            await fetch('https://api.paytripapp.com/user/J220701/verify',{
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                'username': email
+            })
+        }).then(resp=>console.log(resp)).then(data=>{console.log(JSON.stringify(data));
+            if(data.includes("fail")) {
+                toast.error('Not able to approve...', {
+                    position: toast.POSITION.TOP_RIGHT
+                 });
+            } else {
+                setapprv(true);
+                toast.success('Approving user...', {
+                    position: toast.POSITION.TOP_RIGHT
+                 });
+                 const notify=async () =>{
+                    await fetch('https://api.paytripapp.com/user/J220701/notification',{
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'username': email
+                    })
+                }).then(resp=>console.log(resp)).then(data=>{console.log(JSON.stringify(data));
+                    if(data.includes("fail")) {
+                        toast.error('Not Able to Notify user...', {
+                            position: toast.POSITION.TOP_RIGHT
+                         });
+                    } else {
+                        
+                        toast.success('Notifying user...', {
+                            position: toast.POSITION.TOP_RIGHT
+                         });
+                    }
+                })
+            }
+                 }
+            })
+        }//https://api.paytripapp.com/user/J220701/notification
+        ;//https://api.paytripapp.com/user/J220701/verify
         return (
             <>
             <ToastContainer/>
@@ -499,6 +554,7 @@ function Dashboard_component(props) {
                     <th className='bg-danger'>Status</th>
                     <th className='bg-danger'>Notify Them</th>
                 </thead>
+                
                 <tr>
                     <td>A1</td>
                     <td>Author(Sample)</td>
@@ -663,6 +719,23 @@ export function Dashboard(props) {
         {value:"Editor",label:"Editor"},
         {value:"Publisher",label:"Publisher"},
     ];
+    const [role,setrole]=useState("Reviewer");
+    const [user,setuser]=useState("user");
+    const [country,setcountry]=useState("country");
+    const [email,setemail]=useState("email");
+
+    const mapStateToProps=state=>({
+        ...state
+    });
+
+    props=mapStateToProps;
+
+    /*
+    setrole(this.props.role);
+    setuser(this.props.uname);
+    setcountry(this.user.country);
+    setemail(this.user.email);
+    */
     
     const [seloption,setseloption]=useState(null);
     return (
