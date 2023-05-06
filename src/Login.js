@@ -30,8 +30,8 @@ setTimeout(() => {
         <>
         <div><ToastContainer/></div>
         <form className='form-group' action='/dashboard'  encType='application/x-www-form-urlencoded'>
-        <input className='form-control text-primary' onChange={updateuser} required placeholder='Email Address' name='email' type='email'/>
-        <input className='form-control text-primary' required  placeholder='Password' name='pass' type='password'/>
+        <input className='form-control text-primary' onChange={updateuser} required placeholder='Email Address [For 10 days: demo@demo.com]' name='email' type='email'/>
+        <input className='form-control text-primary' required  placeholder='Password [For 10 days: demo]' name='pass' type='password'/>
         
         <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} size="normal" theme="dark" ref={captchaval}/>
 

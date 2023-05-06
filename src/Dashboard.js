@@ -137,7 +137,7 @@ function Dashboard_component(props) {
     const [urlarr,seturlarr]=useState([]);
     const [file,setfile]=useState("");
     const mailer=()=>{
-        const subject="Approval Status Brahma Blockchain";
+        const subject="Approval Status Ahha a Stomeo";
         const body=isaproved ? "Your profile is approved":"Your profile is not approved";
         let params = subject || body ? '?' : '';
         if (subject) params += `subject=${encodeURIComponent(subject)}`;
@@ -287,7 +287,7 @@ function Dashboard_component(props) {
             console.log(clicked);
     return (
         <>
-        <p className="text-success">Welcome {type} to Brahma</p>  
+        <p className="text-success">Welcome {type} to Ahha a</p>  
         <form className='form-group' onSubmit={readandupload}>
        <span className='panel'>
         <input type="file" onChange={uploadfile} className='form-control btn btn-primary' name='fileu'/>
@@ -658,9 +658,9 @@ export function Dashboard(props) {
     const name=cuser.name;
     const options=[
         {value:type,label:type},
-        {value:"Admin",label:"Admin"},
-        {value:"Reviewer",label:"Reviewer"},
-        {value:"Editor",label:"Editor"},
+        {value:"Admin",label:"Programmer"},
+        {value:"Reviewer",label:"Stock Analyser"},
+        {value:"Editor",label:"Crypto Experience (Beta)"},
         {value:"Publisher",label:"Publisher"},
     ];
     
